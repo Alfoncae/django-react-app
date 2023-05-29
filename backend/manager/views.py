@@ -6,4 +6,7 @@ from .models import Transaction
 
 # Create your views here.
 class TransactionView(viewsets.ModelViewSet):
-    pass
+
+    serializer_class = TransactionSerializer
+
+    queryset = Transaction.objects.all()
