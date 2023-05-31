@@ -1,0 +1,76 @@
+body {
+    background-color: #0f212e;
+    margin: 0;
+    color: #F0F0F0;
+}
+
+* {
+    font-family: sans-serif;
+}
+
+/* NAVBAR STYLING */
+.navbar--container * {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar--container {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #11212c;
+    height: 40px;
+    box-shadow: 1px 2px 4px 0px #070a0c;
+}
+
+.nav--logo {
+    width: 40px;
+    stroke: white;
+}
+
+
+/* FORM STYLING */
+.login--container * {
+    margin: 0;
+    padding: 0;
+}
+
+.login--container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    margin-top: 60px;
+}
+
+.input--container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.input--container input{
+    height: 35px;
+    background-color: transparent;
+    border: .5px solid #565d62;
+    border-radius: 2px;
+    padding: 0px 8px 0px 8px;
+    outline: none;
+    font-size: 20px;
+    color: #dee2e5;
+}
+
+.input--container button {
+    margin-top: 15px;
+    height: 40px;
+    background-color: #1879bd;
+    box-shadow: 1px 2px 4px 0px #080b0c;
+    border-radius: 3px;
+    border: none;
+    padding: 0px 8px 0px 8px;
+    outline: none;
+    font-size: 18px;
+    color: #ffffff;
+}

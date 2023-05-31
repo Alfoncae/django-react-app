@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'manager',
+    'rest_auth',
     'corsheaders',
     'rest_framework',
     'django.contrib.admin',
@@ -81,9 +82,6 @@ AUTH_USER_MODEL = 'manager.User'
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
 )
-
-CORS_ALLOW_ALL_ORIGINS = True
-
 
 
 # Database
