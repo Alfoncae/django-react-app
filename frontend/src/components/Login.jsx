@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 function LogIn() {
 
@@ -18,26 +19,41 @@ function LogIn() {
     }
 
     // HANDLES FORM SUBMISSION
-    function handleSubmit() {
-
-    }
+    const handleSubmit = async event => {
+        event.preventDefault();
+    
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/login/', { username: form.username, password: form.password });
+            console.log(response.data);
+                {/* RESET INPUT VALUES AFTER SUCCESS */}
+            setForm(prevForm => ({
+                ...prevForm,
+                username: '',
+                password: '',
+            }))
+          } catch (error) {
+            if (error.response) {
+                console.log(error.response.data)
+            }
+          }
+    };
 
     return (
-        <form className="login--container">
-                {/* EMAIL INPUT */}
+        <form onSubmit={handleSubmit} className="login--container">
+                {/* USERNAME INPUT */}
             <div className="input--container">
                 <label 
                     className="label--text"
-                    htmlFor="auth--email"
+                    htmlFor="auth--username"
                 >
-                Email
+                Username
                 </label>
 
                 <input 
                     required
                     autoComplete="currentUserName"
-                    onChange={e => handleChange(e)}
-                    id="auth--email" 
+                    onChange={handleChange}
+                    id="auth--username" 
                     type="text" 
                     name="username"
                     value={form.username}
@@ -55,7 +71,7 @@ function LogIn() {
                 <input 
                     required
                     autoComplete="currentPassword"
-                    onChange={e => handleChange(e)}
+                    onChange={handleChange}
                     id="auth--password"
                     type="password"
                     name="password"

@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 function SignUp() {
 
@@ -21,12 +22,34 @@ function SignUp() {
     }
 
     // HANDLES FORM SUBMISSION
-    function handleSubmit() {
-        
+    const handleSubmit = async event => {
+        event.preventDefault();
+    
+
+    if (form.password === form.confirmPassword) {
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/register/', { username: form.username, email: form.email, password: form.password });
+            console.log(response.data);
+                {/* RESET INPUT VALUES AFTER SUCCESS */}
+            setForm(prevForm => ({
+                ...prevForm,
+                email: '',
+                username: '',
+                password: '',
+                confirmPassword: '',
+            }))
+          } catch (error) {
+            if (error.response) {
+                console.log(error.response.data)
+            }
+          }
+    } else {
+        alert('Passwords dont match');
     }
+    };
 
     return (
-        <form onSubmit={handleSubmit} className="login--container">
+        <form  onSubmit={handleSubmit} className="login--container">
                 {/* EMAIL INPUT */}
             <div className="input--container">
                 <label 
@@ -39,7 +62,7 @@ function SignUp() {
                 <input 
                     autoFocus
                     required
-                    onChange={e => handleChange(e)}
+                    onChange={handleChange}
                     id="auth--email" 
                     type="email" 
                     name="email"
@@ -57,7 +80,7 @@ function SignUp() {
                 </label>
                 <input
                     required
-                    onChange={e => handleChange(e)}
+                    onChange={handleChange}
                     id="auth--username"
                     type="text"
                     name="username"
@@ -76,7 +99,7 @@ function SignUp() {
                 <input 
                     autoComplete="newPassword"
                     required
-                    onChange={e => handleChange(e)}
+                    onChange={handleChange}
                     id="auth--password"
                     type="password"
                     name="password"
@@ -95,7 +118,7 @@ function SignUp() {
                 <input
                     autoComplete="newPassword" 
                     required
-                    onChange={e => handleChange(e)}
+                    onChange={handleChange}
                     id="auth--confirm"
                     type="password"
                     name="confirmPassword"
