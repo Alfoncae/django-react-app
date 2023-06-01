@@ -1,1 +1,1 @@
-# django recat project
+# django react project
