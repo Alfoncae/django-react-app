@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { NavLink } from 'react-router-dom'
 
 function SignUp(props) {
 
@@ -130,7 +131,12 @@ function SignUp(props) {
             <div className="input--container">
                 <button>Sign up</button>
             </div>
-            <h3 onClick={props.changeForm}>or login</h3>
+            <NavLink 
+                to="/login" 
+                className="nav--link">
+                 
+                <h3>or login</h3>
+            </NavLink>
         </form>
     )
 }

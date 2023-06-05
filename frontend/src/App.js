@@ -4,13 +4,13 @@ import LogIn from './components/Login';
 import Heading from './components/Heading';
 import Navbar from './components/Navbar';
 import SignUp from './components/SignUp';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 
 // Capitalizes first letter
 function capitalizeFirstLetter(name) {
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
-
 
 function App() {
 
@@ -53,12 +53,16 @@ function App() {
 
   return (
     <div className="App">
+    <BrowserRouter>
       <Heading />
-      {isLoggingIn ? <LogIn changeForm={changeForm}/> : <SignUp changeForm={changeForm}/>}
-      
+      <Routes>
+        <Route path="/login" element={<LogIn />}/>
+        <Route path="/signup" element={<SignUp />}/>
+      </Routes> 
       <footer>
         <Navbar />
       </footer>
+    </BrowserRouter>
     </div>
   );
 }

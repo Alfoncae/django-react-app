@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
@@ -53,6 +54,7 @@ def login_view(request):
     
     return Response({'error': 'No'}, status=status.HTTP_400_BAD_REQUEST)
 
+@login_required
 @api_view(['POST'])
 def logout_view(request):
     logout(request)

@@ -52,11 +52,6 @@ body {
     margin-top: 60px;
 }
 
-.auth--container h3 {
-    margin-top: 20px;
-    color: rgb(9, 201, 9);
-}
-
 .input--container {
     width: 80%;
     display: flex;
@@ -103,4 +98,18 @@ footer {
 .profile--icon, .money--icon, .analytics--icon {
     width: 33px;
     fill: white;
+}
+
+.nav--link {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    margin-top: 20px;
+    color: rgb(9, 201, 9);
+}
+
+.activeNav--link {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    margin-top: 20px;
+    color: rgb(121, 9, 201);
 }
