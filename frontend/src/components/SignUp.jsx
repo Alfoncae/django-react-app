@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-function SignUp() {
+function SignUp(props) {
 
     const [form, setForm] = React.useState({
         email: '',
@@ -49,7 +49,7 @@ function SignUp() {
     };
 
     return (
-        <form  onSubmit={handleSubmit} className="login--container">
+        <form  onSubmit={handleSubmit} className="auth--container">
                 {/* EMAIL INPUT */}
             <div className="input--container">
                 <label 
@@ -130,7 +130,7 @@ function SignUp() {
             <div className="input--container">
                 <button>Sign up</button>
             </div>
-            
+            <h3 onClick={props.changeForm}>or login</h3>
         </form>
     )
 }

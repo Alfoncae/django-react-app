@@ -4,17 +4,24 @@ body {
     color: #F0F0F0;
 }
 
+.App {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
 * {
     font-family: sans-serif;
 }
 
-/* NAVBAR STYLING */
-.navbar--container * {
+/* HEADING STYLING */
+.heading--container * {
     margin: 0;
     padding: 0;
 }
 
-.navbar--container {
+.heading--container {
     display: flex;
     align-items: end;
     justify-content: center;
@@ -25,24 +32,29 @@ body {
     box-shadow: 1px 2px 4px 0px #070a0c;
 }
 
-.nav--logo {
+.heading--logo {
     width: 40px;
     stroke: white;
 }
 
 
 /* FORM STYLING */
-.login--container * {
+.auth--container * {
     margin: 0;
     padding: 0;
 }
 
-.login--container {
+.auth--container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 7px;
     margin-top: 60px;
+}
+
+.auth--container h3 {
+    margin-top: 20px;
+    color: rgb(9, 201, 9);
 }
 
 .input--container {
@@ -73,4 +85,22 @@ body {
     outline: none;
     font-size: 18px;
     color: #ffffff;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: auto;
+    bottom: 0;
+    position: sticky;
+    height: 40px;
+    background-color: #0d1920;
+    padding: 12px;
+}
+
+/* NAVBAR STYLING */
+.profile--icon, .money--icon, .analytics--icon {
+    width: 33px;
+    fill: white;
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-function LogIn() {
+function LogIn(props) {
 
     const [form, setForm] = React.useState({
         username: '',
@@ -39,7 +39,7 @@ function LogIn() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="login--container">
+        <form onSubmit={handleSubmit} className="auth--container">
                 {/* USERNAME INPUT */}
             <div className="input--container">
                 <label 
@@ -50,6 +50,7 @@ function LogIn() {
                 </label>
 
                 <input 
+                    autoFocus
                     required
                     autoComplete="currentUserName"
                     onChange={handleChange}
@@ -83,7 +84,7 @@ function LogIn() {
             <div className="input--container">
                 <button>Log in</button>
             </div>
-            
+            <h3 onClick={props.changeForm}>or signup</h3>
         </form>
     )
 }

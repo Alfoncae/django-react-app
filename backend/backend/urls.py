@@ -27,7 +27,8 @@ router.register(r'users',views.UserView, 'user')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', views.register, name='register'),
-    path('login/', views.login, name='login'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
 
     # add another path to the url patterns
     # when you visit the localhost:8000/api

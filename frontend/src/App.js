@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import LogIn from './components/Login';
+import Heading from './components/Heading';
 import Navbar from './components/Navbar';
 import SignUp from './components/SignUp';
 
@@ -13,6 +14,7 @@ function capitalizeFirstLetter(name) {
 
 function App() {
 
+  const [isLoggingIn, setIsLoggingIn] = React.useState(true)
   const [transactions, setTransactions] = React.useState([])
   const [users, setUsers] = React.useState([])
 
@@ -45,17 +47,18 @@ function App() {
     )
   })
 
-  const [isLoggingIn, setIsLoggingIn] = React.useState(true)
-
   function changeForm() {
     setIsLoggingIn(oldState => !oldState);
   }
 
   return (
     <div className="App">
-      <Navbar />
-      <div onClick={changeForm}>Change form</div>
-      {isLoggingIn ? <LogIn /> : <SignUp />}
+      <Heading />
+      {isLoggingIn ? <LogIn changeForm={changeForm}/> : <SignUp changeForm={changeForm}/>}
+      
+      <footer>
+        <Navbar />
+      </footer>
     </div>
   );
 }

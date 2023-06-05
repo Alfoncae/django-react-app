@@ -32,21 +32,28 @@ def register(request):
     if User.objects.filter(email=data['email']).exists():
         return Response({'error': 'Email already exists'}, status=status.HTTP_400_BAD_REQUEST)
 
-    User.objects.create_user(username=data['username'], password=data['password'], email=data['email'])
-
+    user = User.objects.create_user(username=data['username'], password=data['password'], email=data['email'])
+    login(request, user)
     return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
 
 
 @api_view(['POST'])
-def login(request):
+def login_view(request):
+
     data = request.data
 
     # Attempt to sign user in
     username = data['username']
     password = data['password']
     user = authenticate(request, username=username, password=password)
-
+    currentUser = request.user
     if user is not None:
+        login(request, user)
         return Response({'message': 'User logged In successfully'}, status=status.HTTP_202_ACCEPTED)
     
     return Response({'error': 'No'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def logout_view(request):
+    logout(request)
+    return Response({'message': 'User logged out successfully'}, status=status.HTTP_202_ACCEPTED)
