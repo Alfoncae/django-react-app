@@ -97,19 +97,30 @@ footer {
 /* NAVBAR STYLING */
 .profile--icon, .money--icon, .analytics--icon {
     width: 33px;
+    fill: rgb(141, 139, 139);
+}
+
+.active--icon {
     fill: white;
 }
 
 .nav--link {
-    text-decoration: underline;
     text-underline-offset: 5px;
     margin-top: 20px;
     color: rgb(9, 201, 9);
 }
 
 .activeNav--link {
-    text-decoration: underline;
     text-underline-offset: 5px;
     margin-top: 20px;
     color: rgb(121, 9, 201);
+}
+
+/* ICON STATUS */
+.icon--link {
+    text-decoration: none;
+}
+
+.activeIcon--link svg{
+    fill: white;
 }

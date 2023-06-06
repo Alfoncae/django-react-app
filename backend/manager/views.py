@@ -3,8 +3,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from rest_framework import status
 from rest_framework import viewsets
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from .serializers import TransactionSerializer, UserSerializer
 
 from .models import Transaction, User
@@ -35,7 +36,7 @@ def register(request):
 
     user = User.objects.create_user(username=data['username'], password=data['password'], email=data['email'])
     login(request, user)
-    return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
+    return Response({'message': 'User created successfully '}, status=status.HTTP_201_CREATED)
 
 
 @api_view(['POST'])

@@ -4,6 +4,7 @@ import LogIn from './components/Login';
 import Heading from './components/Heading';
 import Navbar from './components/Navbar';
 import SignUp from './components/SignUp';
+import HomePage from './pages/HomePage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 
@@ -14,7 +15,6 @@ function capitalizeFirstLetter(name) {
 
 function App() {
 
-  const [isLoggingIn, setIsLoggingIn] = React.useState(true)
   const [transactions, setTransactions] = React.useState([])
   const [users, setUsers] = React.useState([])
 
@@ -47,10 +47,6 @@ function App() {
     )
   })
 
-  function changeForm() {
-    setIsLoggingIn(oldState => !oldState);
-  }
-
   return (
     <div className="App">
     <BrowserRouter>
@@ -58,6 +54,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<LogIn />}/>
         <Route path="/signup" element={<SignUp />}/>
+        <Route path="/home" element={<HomePage />}/>
       </Routes> 
       <footer>
         <Navbar />
