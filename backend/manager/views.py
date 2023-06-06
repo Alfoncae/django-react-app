@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 from rest_framework import status
+from django.http import JsonResponse, Http404
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -11,17 +11,65 @@ from .serializers import TransactionSerializer, UserSerializer
 from .models import Transaction, User
 
 # Create your views here.
-class TransactionView(viewsets.ModelViewSet):
 
-    serializer_class = TransactionSerializer
+@api_view(['GET'])
+def Transactions(request):
 
-    queryset = Transaction.objects.all()
+    if request.method == 'GET':
+        data = Transaction.objects.all()
+        serializer = TransactionSerializer(data, many=True)
+        return Response({'transactions': serializer.data})
+    return Response(status=status.HTTP_400_BAD_REQUEST)
 
-class UserView(viewsets.ModelViewSet):
+    
+@api_view(['POST', 'GET', 'DELETE'])
+def SingleTransaction(request, id):
 
-    serializer_class = UserSerializer
+    try:
+        data = Transaction.objects.get(id=id)
+    except Transaction.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    queryset = User.objects.all()
+    if request.method == 'GET':
+        serializer = TransactionSerializer(data)
+        return Response({'transaction': serializer.data})
+
+    # UPDATES THE OLD DATA WITH THE NEW SUBMITTED ONE
+    elif request.method == 'POST':
+        serializer = TransactionSerializer(data, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'Transaction': serializer.data})
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    # DELETES THE DATA WE ARE LOOKING AT
+    elif request.method == 'DELETE':
+        data.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def Users(request):
+
+    if request.method == 'GET':
+        data = User.objects.all()
+        serializer = UserSerializer(data, many=True)
+        return Response({'users': serializer.data})
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def SingleUser(request, id):
+
+    try:
+        data = User.objects.get(id=id)
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = UserSerializer(data)
+        return Response({'user': serializer.data})
+    return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
@@ -55,7 +103,7 @@ def login_view(request):
     
     return Response({'error': 'No'}, status=status.HTTP_400_BAD_REQUEST)
 
-@login_required
+
 @api_view(['POST'])
 def logout_view(request):
     logout(request)

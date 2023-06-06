@@ -16,14 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include 
 from manager import views
-from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
-router = routers.DefaultRouter()
-
-router.register(r'transactions',views.TransactionView, 'transaction')
-router.register(r'users',views.UserView, 'user')
-
 
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -33,8 +26,8 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
 
-    # add another path to the url patterns
-    # when you visit the localhost:8000/api
-    # you should be routed to the django Rest framework
-    path('api/', include(router.urls)),
+    path('api/transactions/', views.Transactions, name='transactions'),
+    path('api/transactions/<int:id>', views.SingleTransaction, name='transaction'),
+    path('api/users/', views.Users, name='users'),
+    path('api/users/<int:id>/', views.SingleUser, name='user'),
 ]
