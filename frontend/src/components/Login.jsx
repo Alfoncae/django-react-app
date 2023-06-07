@@ -1,8 +1,10 @@
 import React from 'react'
 import axios from 'axios'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 function LogIn(props) {
+
+    const navigate = useNavigate()
 
     const [form, setForm] = React.useState({
         username: '',
@@ -20,24 +22,31 @@ function LogIn(props) {
     }
 
     // HANDLES FORM SUBMISSION
-    const handleSubmit = async event => {
-        event.preventDefault();
-    
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/token/', { username: form.username, password: form.password });
-            console.log(response.data);
-                {/* RESET INPUT VALUES AFTER SUCCESS */}
-            setForm(prevForm => ({
-                ...prevForm,
+    function handleSubmit(event) {
+        event.preventDefault()
+        const url = 'http://127.0.0.1:8000/token/'
+
+        fetch(url, {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: form.username,
+                password: form.password
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem('access', data.access)
+            setForm(oldForm => ({
+                ...oldForm,
                 username: '',
-                password: '',
+                password: ''
             }))
-          } catch (error) {
-            if (error.response) {
-                console.log(error.response.data)
-            }
-          }
-    };
+            navigate('/home')
+        })
+    }
 
     return (
         <form onSubmit={handleSubmit} className="auth--container">
