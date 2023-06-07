@@ -24,7 +24,7 @@ function LogIn(props) {
         event.preventDefault();
     
         try {
-            const response = await axios.post('http://127.0.0.1:8000/login/', { username: form.username, password: form.password });
+            const response = await axios.post('http://127.0.0.1:8000/token/', { username: form.username, password: form.password });
             console.log(response.data);
                 {/* RESET INPUT VALUES AFTER SUCCESS */}
             setForm(prevForm => ({

@@ -13,6 +13,7 @@ from .models import Transaction, User
 # Create your views here.
 
 @api_view(['GET'])
+@permission_classes({IsAuthenticated})
 def Transactions(request):
 
     if request.method == 'GET':
@@ -23,6 +24,7 @@ def Transactions(request):
 
     
 @api_view(['POST', 'GET', 'DELETE'])
+@permission_classes({IsAuthenticated})
 def SingleTransaction(request, id):
 
     try:
@@ -49,6 +51,7 @@ def SingleTransaction(request, id):
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+@permission_classes({IsAuthenticated})
 def Users(request):
 
     if request.method == 'GET':
@@ -59,6 +62,7 @@ def Users(request):
 
 
 @api_view(['GET'])
+@permission_classes({IsAuthenticated})
 def SingleUser(request, id):
 
     try:
@@ -70,41 +74,3 @@ def SingleUser(request, id):
         serializer = UserSerializer(data)
         return Response({'user': serializer.data})
     return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['POST'])
-def register(request):
-    data = request.data
-
-    if User.objects.filter(username=data['username']).exists():
-        return Response({'error': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
-
-    if User.objects.filter(email=data['email']).exists():
-        return Response({'error': 'Email already exists'}, status=status.HTTP_400_BAD_REQUEST)
-
-    user = User.objects.create_user(username=data['username'], password=data['password'], email=data['email'])
-    login(request, user)
-    return Response({'message': 'User created successfully '}, status=status.HTTP_201_CREATED)
-
-
-@api_view(['POST'])
-def login_view(request):
-
-    data = request.data
-
-    # Attempt to sign user in
-    username = data['username']
-    password = data['password']
-    user = authenticate(request, username=username, password=password)
-    currentUser = request.user
-    if user is not None:
-        login(request, user)
-        return Response({'message': 'User logged In successfully'}, status=status.HTTP_202_ACCEPTED)
-    
-    return Response({'error': 'No'}, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['POST'])
-def logout_view(request):
-    logout(request)
-    return Response({'message': 'User logged out successfully'}, status=status.HTTP_202_ACCEPTED)
