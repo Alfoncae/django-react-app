@@ -1,10 +1,11 @@
-import axios from 'axios';
 import React from 'react';
 import LogIn from './components/Login';
 import Heading from './components/Heading';
 import Navbar from './components/Navbar';
 import SignUp from './components/SignUp';
 import HomePage from './pages/HomePage';
+import WalletPage from './pages/WalletPage';
+import AccountPage from './pages/AccountPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 
@@ -23,6 +24,8 @@ function App() {
         <Route path="/login" element={<LogIn />}/>
         <Route path="/signup" element={<SignUp />}/>
         <Route path="/home" element={<HomePage />}/>
+        <Route path="/wallet" element={<WalletPage />}/>
+        <Route path="/account" element={<AccountPage />}/>
       </Routes> 
       <footer>
         <Navbar />
