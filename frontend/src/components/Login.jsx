@@ -1,10 +1,11 @@
 import React from 'react'
 import axios from 'axios'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 
 function LogIn(props) {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const locatiion = useLocation();
 
     const [form, setForm] = React.useState({
         username: '',
@@ -44,7 +45,7 @@ function LogIn(props) {
                 username: '',
                 password: ''
             }))
-            navigate('/home')
+            navigate(locatiion.state.previousUrl);
         })
     }
 

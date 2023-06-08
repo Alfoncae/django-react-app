@@ -31,7 +31,8 @@ function SignUp(props) {
         try {
             const response = await axios.post('http://127.0.0.1:8000/register/', { username: form.username, email: form.email, password: form.password });
             console.log(response.data);
-                {/* RESET INPUT VALUES AFTER SUCCESS */}
+
+            {/* RESET INPUT VALUES AFTER SUCCESS */}
             setForm(prevForm => ({
                 ...prevForm,
                 email: '',

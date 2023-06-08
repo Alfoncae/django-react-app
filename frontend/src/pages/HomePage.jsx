@@ -1,11 +1,12 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import React from "react"
 
 export default function HomePage() {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const [payments, setPayments] = React.useState([])  // Initialize as an empty array
+    const [payments, setPayments] = React.useState([])
 
     React.useEffect(() => {
         
@@ -17,7 +18,11 @@ export default function HomePage() {
         })
         .then(response => {
             if (response.status === 401){
-                navigate('/login')
+                navigate('/login', {
+                    state: {
+                        previousUrl: location.pathname
+                    }
+                })
             }
             return response.json()
         })
