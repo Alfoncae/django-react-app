@@ -2,8 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
 class User(AbstractUser):
-    pass
+    savings = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    expenses = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
 class Transaction(models.Model):
      

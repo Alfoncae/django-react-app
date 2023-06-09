@@ -49,28 +49,3 @@ def SingleTransaction(request, id):
         data.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     return Response(status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['GET'])
-@permission_classes({IsAuthenticated})
-def Users(request):
-
-    if request.method == 'GET':
-        data = User.objects.all()
-        serializer = UserSerializer(data, many=True)
-        return Response({'users': serializer.data})
-    return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET'])
-@permission_classes({IsAuthenticated})
-def SingleUser(request, id):
-
-    try:
-        data = User.objects.get(id=id)
-    except User.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = UserSerializer(data)
-        return Response({'user': serializer.data})
-    return Response(status=status.HTTP_400_BAD_REQUEST)

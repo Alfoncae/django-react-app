@@ -25,6 +25,4 @@ urlpatterns = [
 
     path('api/transactions/', views.Transactions, name='transactions'),
     path('api/transactions/<int:id>', views.SingleTransaction, name='transaction'),
-    path('api/users/', views.Users, name='users'),
-    path('api/users/<int:id>/', views.SingleUser, name='user'),
 ]
