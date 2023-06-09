@@ -1,10 +1,19 @@
-import { useNavigate, useLocation } from "react-router-dom"
 import React from "react"
+import { useNavigate, useLocation, Navigate } from "react-router-dom"
+import { LoginContext } from "../App"
 
 
 
-export default function WalletPage() {
+export default function AccountPage(props) {
+
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    const [loggedIn, setLoggedIn] = React.useContext(LoginContext)
+
     return (
-        <h1>This is the wallet page</h1>
+        <div className="account--container">
+            <h3>This is the wallet page</h3>
+        </div>
     )
 }

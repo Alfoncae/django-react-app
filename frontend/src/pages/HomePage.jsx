@@ -1,8 +1,10 @@
-import { useNavigate, useLocation } from "react-router-dom"
 import React from "react"
+import { useNavigate, useLocation } from "react-router-dom"
+import { LoginContext } from "../App";
 
 export default function HomePage() {
 
+    const [loggedIn, setLoggedIn] = React.useContext(LoginContext)
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -18,6 +20,7 @@ export default function HomePage() {
         })
         .then(response => {
             if (response.status === 401){
+                setLoggedIn(false)
                 navigate('/login', {
                     state: {
                         previousUrl: location.pathname

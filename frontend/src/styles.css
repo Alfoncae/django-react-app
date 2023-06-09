@@ -124,3 +124,16 @@ footer {
 .activeIcon--link svg{
     fill: white;
 }
+
+/* ACCOUNT STYLING */
+.account--container, .intro--container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro--container {
+    padding: 20px;
+    text-align: center;
+}

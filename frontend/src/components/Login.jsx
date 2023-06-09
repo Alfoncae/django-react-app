@@ -1,9 +1,11 @@
 import React from 'react'
 import axios from 'axios'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { LoginContext } from '../App'
 
 function LogIn(props) {
 
+    const [loggedIn, setLoggedIn] = React.useContext(LoginContext)
     const navigate = useNavigate();
     const locatiion = useLocation();
 
@@ -40,12 +42,15 @@ function LogIn(props) {
         .then(response => response.json())
         .then(data => {
             localStorage.setItem('access', data.access)
+            localStorage.setItem('refresh', data.refresh)
+            setLoggedIn(true)
             setForm(oldForm => ({
                 ...oldForm,
                 username: '',
                 password: ''
             }))
-            navigate(locatiion.state.previousUrl);
+            navigate(locatiion?.state?.previousUrl ? 
+                locatiion.state.previousUrl : '/home');
         })
     }
 
