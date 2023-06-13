@@ -19,11 +19,18 @@ export const LoginContext = React.createContext()
 
 export default function App() {
 
-  const [loggedIn, setLoggedIn] = React.useState(false)
+  const [loggedIn, setLoggedIn] = React.useState(localStorage.access ? true : false)
+
+  function changeLoggedIn(value) {
+    setLoggedIn(value)
+    if (value === false){
+      localStorage.clear()
+    }
+  }
 
   return (
     <div className="App">
-    <LoginContext.Provider value={[loggedIn, setLoggedIn]}>
+    <LoginContext.Provider value={[loggedIn, changeLoggedIn]}>
       <BrowserRouter>
         <Heading />
         <Routes>

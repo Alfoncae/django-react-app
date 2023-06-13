@@ -126,6 +126,10 @@ footer {
 }
 
 /* ACCOUNT STYLING */
+.account--container * {
+ text-decoration: none;   
+}
+
 .account--container, .intro--container {
     display: flex;
     flex-direction: column;
@@ -133,7 +137,16 @@ footer {
     justify-content: center;
 }
 
+/* INTRO STYLING*/
+.intro--container * {
+    text-decoration: none;
+}
+
 .intro--container {
     padding: 20px;
     text-align: center;
+}
+
+.intro--container h3 {
+    opacity: 25%;
 }

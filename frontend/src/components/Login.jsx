@@ -68,7 +68,7 @@ function LogIn(props) {
                 <input 
                     autoFocus
                     required
-                    autoComplete="currentUserName"
+                    autoComplete="off"
                     onChange={handleChange}
                     id="auth--username" 
                     type="text" 
