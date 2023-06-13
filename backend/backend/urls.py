@@ -25,4 +25,5 @@ urlpatterns = [
 
     path('api/transactions/', views.Transactions, name='transactions'),
     path('api/transactions/<int:id>', views.SingleTransaction, name='transaction'),
+    path('api/register/', views.Register, name='register'),
 ]

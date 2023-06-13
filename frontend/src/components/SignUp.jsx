@@ -1,8 +1,18 @@
 import React from 'react'
-import axios from 'axios'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { LoginContext } from '../App';
 
-function SignUp(props) {
+function SignUp() {
+
+    const [loggedIn, setLoggedIn] = React.useContext(LoginContext)
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    React.useEffect(() => {
+        localStorage.clear()
+        setLoggedIn(false)
+
+    }, [])
 
     const [form, setForm] = React.useState({
         email: '',
@@ -25,29 +35,30 @@ function SignUp(props) {
     // HANDLES FORM SUBMISSION
     const handleSubmit = async event => {
         event.preventDefault();
-    
-
-    if (form.password === form.confirmPassword) {
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/register/', { username: form.username, email: form.email, password: form.password });
-            console.log(response.data);
-
-            {/* RESET INPUT VALUES AFTER SUCCESS */}
-            setForm(prevForm => ({
-                ...prevForm,
-                email: '',
-                username: '',
-                password: '',
-                confirmPassword: '',
-            }))
-          } catch (error) {
-            if (error.response) {
-                console.log(error.response.data)
-            }
-          }
-    } else {
-        alert('Passwords dont match');
-    }
+        if (form.password === form.confirmPassword) {
+            fetch('http://127.0.0.1:8000/api/register/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: form.username,        
+                    email: form.email,
+                    password: form.password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                setLoggedIn(true)
+                localStorage.setItem('access', data.access);
+                localStorage.setItem('refresh', data.refresh);
+                navigate(location?.state?.previousUrl ? 
+                    location.state.previousUrl : '/home');
+            })
+        } else {
+            alert('Passwords Do not match!')
+        }
     };
 
     return (

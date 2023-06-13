@@ -3,11 +3,11 @@ import axios from 'axios'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { LoginContext } from '../App'
 
-function LogIn(props) {
+function LogIn() {
 
     const [loggedIn, setLoggedIn] = React.useContext(LoginContext)
     const navigate = useNavigate();
-    const locatiion = useLocation();
+    const location = useLocation();
 
     const [form, setForm] = React.useState({
         username: '',
@@ -49,8 +49,8 @@ function LogIn(props) {
                 username: '',
                 password: ''
             }))
-            navigate(locatiion?.state?.previousUrl ? 
-                locatiion.state.previousUrl : '/home');
+            navigate(location?.state?.previousUrl ? 
+                location.state.previousUrl : '/home');
         })
     }
 

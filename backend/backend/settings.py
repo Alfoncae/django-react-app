@@ -87,6 +87,13 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
 )
 
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETMINE': timedelta(minutes=5),
+    'ROTATE_REFRESH_TOKENS': True,
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

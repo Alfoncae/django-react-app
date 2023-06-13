@@ -4,7 +4,7 @@ import { LoginContext } from "../App"
 
 
 
-export default function AccountPage(props) {
+export default function AccountPage() {
 
     const [loggedIn, setLoggedIn] = React.useContext(LoginContext)
 

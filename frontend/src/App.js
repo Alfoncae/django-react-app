@@ -19,6 +19,34 @@ export const LoginContext = React.createContext()
 
 export default function App() {
 
+  // Refreshes the token
+  React.useEffect(() => {
+    
+    const minute = 1000 * 60
+    function refreshToken() {
+      if (localStorage.refresh) 
+        {fetch('http://127.0.0.1:8000/token/refresh', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json' 
+          },
+          body: JSON.stringify({
+            refresh: localStorage.refresh
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          localStorage.refresh = data.refresh;
+          localStorage.access = data.access;
+          setLoggedIn(true)
+        });
+      }
+    }
+
+    refreshToken()
+    setInterval(refreshToken, minute * 5)
+  }, [])
+
   const [loggedIn, setLoggedIn] = React.useState(localStorage.access ? true : false)
 
   function changeLoggedIn(value) {
