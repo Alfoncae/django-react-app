@@ -9,9 +9,7 @@ function SignUp() {
     const location = useLocation();
 
     React.useEffect(() => {
-        localStorage.clear()
         setLoggedIn(false)
-
     }, [])
 
     const [form, setForm] = React.useState({
@@ -47,12 +45,18 @@ function SignUp() {
                     password: form.password
                 })
             })
-            .then(response => response.json())
+            .then(response => {
+
+                if (response.status === 400){
+                    alert('username is taken!')
+                }
+                return response.json()
+            })
             .then(data => {
-                console.log(data)
                 setLoggedIn(true)
                 localStorage.setItem('access', data.access);
                 localStorage.setItem('refresh', data.refresh);
+                localStorage.setItem('username', form.username)
                 navigate(location?.state?.previousUrl ? 
                     location.state.previousUrl : '/home');
             })
@@ -145,7 +149,8 @@ function SignUp() {
             </div>
             <NavLink 
                 to="/login" 
-                className="nav--link">
+                className="nav--link"
+            >
                  
                 <h3>or login</h3>
             </NavLink>

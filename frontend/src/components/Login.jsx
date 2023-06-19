@@ -2,12 +2,17 @@ import React from 'react'
 import axios from 'axios'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
 import { LoginContext } from '../App'
+import useFetch from '../hooks/UseFetch'
 
 function LogIn() {
 
     const [loggedIn, setLoggedIn] = React.useContext(LoginContext)
     const navigate = useNavigate();
     const location = useLocation();
+
+    React.useEffect(() => {
+        setLoggedIn(false)
+    }, [])
 
     const [form, setForm] = React.useState({
         username: '',
@@ -39,10 +44,16 @@ function LogIn() {
                 password: form.password
             })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.status === 401){
+                alert('false')
+            }
+           return response.json()
+        })
         .then(data => {
             localStorage.setItem('access', data.access)
             localStorage.setItem('refresh', data.refresh)
+            localStorage.setItem('username', form.username)
             setLoggedIn(true)
             setForm(oldForm => ({
                 ...oldForm,

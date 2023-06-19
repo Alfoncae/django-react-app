@@ -1,11 +1,10 @@
 import React from "react"
 import { useNavigate, useLocation, Navigate } from "react-router-dom"
 import { LoginContext } from "../App"
-import LogIn from "../components/Login"
 
 
 
-export default function AccountPage(props) {
+export default function WalletPage() {
 
     const navigate = useNavigate()
     const location = useLocation()

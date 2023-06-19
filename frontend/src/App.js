@@ -6,7 +6,7 @@ import SignUp from './components/SignUp';
 import HomePage from './pages/HomePage';
 import WalletPage from './pages/WalletPage';
 import AccountPage from './pages/AccountPage';
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, } from 'react-router-dom'
 import IntroPage from './pages/IntroPage';
 
 
@@ -52,7 +52,8 @@ export default function App() {
   function changeLoggedIn(value) {
     setLoggedIn(value)
     if (value === false){
-      localStorage.clear()
+      localStorage.clear('access')
+      localStorage.clear('refresh')
     }
   }
 
@@ -65,8 +66,8 @@ export default function App() {
           <Route path="/" element={<IntroPage />}/>
           <Route path="/login" element={<LogIn />}/>
           <Route path="/signup" element={<SignUp />}/>
+          <Route path="/home" element={<HomePage />}/>
           <Route path="/wallet" element={loggedIn ? <WalletPage /> : <LogIn />}/>
-          <Route path="/home" element={loggedIn ? <HomePage /> : <LogIn />}/>
           <Route path="/account" element={loggedIn ? <AccountPage /> : <LogIn />}/>
         </Routes> 
         <footer>

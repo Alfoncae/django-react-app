@@ -1,6 +1,19 @@
-import { NavLink } from "react-router-dom"
+import React from "react"
+import { NavLink, useNavigate } from "react-router-dom"
+import { LoginContext } from "../App"
 
 export default function IntroPage() {
+
+    const navigate = useNavigate()
+
+    const [loggedIn, setLoggedIn] = React.useContext(LoginContext)
+
+    React.useEffect(() => {
+        if (loggedIn === true){
+            navigate('/home')
+        }
+    }, [])
+
     return (
         <div className="intro--container">
             <h3>

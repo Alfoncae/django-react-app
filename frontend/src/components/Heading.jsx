@@ -13,7 +13,7 @@ function Heading() {
                 <path d="M8 16v5"></path>
                 <path d="M3 11c6 0 5 -5 9 -5s3 5 9 5"></path>
             </svg>
-            <h1>Finance Manager</h1>
+            <h1>Money Manager</h1>
         </nav>
     )
 }

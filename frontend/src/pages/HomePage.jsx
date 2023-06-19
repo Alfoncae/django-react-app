@@ -1,45 +1,30 @@
 import React from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { LoginContext } from "../App";
+import useFetch from "../hooks/UseFetch";
 
 export default function HomePage() {
 
     const [loggedIn, setLoggedIn] = React.useContext(LoginContext)
-    const navigate = useNavigate();
-    const location = useLocation();
 
-    const [payments, setPayments] = React.useState([])
-
-    React.useEffect(() => {
-        
-        fetch('http://127.0.0.1:8000/api/transactions/', {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + localStorage.getItem('access')
-            }
-        })
-        .then(response => {
-            if (response.status === 401){
-                setLoggedIn(false)
-                navigate('/login', {
-                    state: {
-                        previousUrl: location.pathname
-                    }
-                })
-            }
-            return response.json()
-        })
-        .then(data => {
-            setPayments(data.transactions)
-        })
-    }, [])
-
-    // map over payments
-    const elements = payments.map(payment => {
-        return <h3 key={payment.id}>{payment.note}</h3> // or whatever the property is in your payment object
-    })
+    const {data: {transactions} = {}, errorStatus} = useFetch('http://127.0.0.1:8000/api/transactions/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + localStorage.getItem('access')
+        },
+    });
 
     return (
-        <ul>{elements}</ul>
+        <>
+            {transactions
+            ? transactions.map(transaction => {
+                return (
+                    <h3 key={transaction.id}>{transaction.note}</h3>
+                )
+            })
+            :
+            <h3>hey</h3>}
+        </>
     )
 }

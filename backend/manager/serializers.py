@@ -11,7 +11,7 @@ class TransactionSerializer(serializers.ModelSerializer):
     # create a meta class
     class Meta:
         model = Transaction
-        fields = ('id', 'created', 'user', 'amount', 'note')
+        fields = '__all__'
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -29,3 +29,9 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+    
+class UserDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        exclude = ('password', 'username')
