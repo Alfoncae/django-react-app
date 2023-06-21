@@ -9,14 +9,14 @@ from .serializers import TransactionSerializer, UserSerializer, UserDetailSerial
 
 from .models import Transaction, User
 
-# Create your views here.
-
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
-def Transactions(request):
+def Transactions(request, user):
+
+    currentUser = get_object_or_404(User, username=user)
 
     if request.method == 'GET':
-        data = Transaction.objects.all()
+        data = Transaction.objects.filter(user=currentUser.id).order_by('-created')
         serializer = TransactionSerializer(data, many=True)
         return Response({'transactions': serializer.data})
     elif request.method == 'POST':

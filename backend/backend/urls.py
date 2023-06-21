@@ -23,7 +23,7 @@ urlpatterns = [
     path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('admin/', admin.site.urls),
 
-    path('api/transactions/', views.Transactions, name='transactions'),
+    path('api/transactions/<str:user>', views.Transactions, name='transactions'),
     path('api/transactions/<int:id>', views.TransactionDetails, name='transactiondetails'),
     path('api/register/', views.Register, name='register'),
     path('api/user/<str:user>', views.UserDetails, name='userdetails'),

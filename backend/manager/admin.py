@@ -3,4 +3,7 @@ from .models import Transaction, User
 # Register your models here.
 
 admin.site.register(Transaction)
-admin.site.register(User)
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'income', 'expenses', 'savings', 'balance')

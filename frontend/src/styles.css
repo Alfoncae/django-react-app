@@ -52,7 +52,7 @@ body {
     margin-top: 60px;
 }
 
-.input--container {
+.input--container, .currency--button {
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -69,10 +69,10 @@ body {
     color: #dee2e5;
 }
 
-.input--container button {
+.input--container button, .currency--button button{
     margin-top: 15px;
     height: 40px;
-    background-color: #1879bd;
+    background-color: #003c64;
     box-shadow: 1px 2px 4px 0px #080b0c;
     border-radius: 3px;
     border: none;
@@ -126,11 +126,11 @@ footer {
 }
 
 /* ACCOUNT STYLING */
-.account--container * {
- text-decoration: none;   
+.mobile--container * {
+    text-decoration: none;
 }
 
-.account--container, .intro--container {
+.mobile--container, .intro--container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -151,4 +151,55 @@ footer {
 
 .intro--container h3 {
     opacity: 25%;
+}
+
+/* PAGES STYLING */
+.page--title {
+    padding: 15px;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+}
+
+/* WALLET PAGE STYLING */
+
+.transaction--container {
+    width: 76%;
+    border: .5px solid;
+    padding: 10px;
+}
+
+.transaction--container:nth-child(1){
+    margin-top: 40px;
+}
+
+.transaction--container:last-child {
+    margin-bottom: 80px;
+}
+
+.transaction--container > div:nth-child(2){
+    color: rgb(141, 231, 6);
+}
+
+.button--group {
+    display: flex;
+    gap: 20px;
+    width: 80%;
+}
+
+.button--group button {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+hr {
+    width: 80%;
+    border-bottom: 0;
+}
+
+
+/* MODEL STYLING GOES HERE */
+.modal--container {
+    height: 50px;
+    width: 80%;
+    background-color: gray;
 }

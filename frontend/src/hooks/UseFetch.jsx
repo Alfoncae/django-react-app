@@ -5,6 +5,7 @@ export default function useFetch(url, { method, headers, body } = {}) {
 
     const [data, setData] = React.useState()
     const [errorStatus, setErrorStatus] = React.useState()
+    const username = localStorage.getItem('username')
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -39,16 +40,13 @@ export default function useFetch(url, { method, headers, body } = {}) {
     }
 
     function updateData(newData){
-        console.log(newData)
-        fetch(`http://127.0.0.1:8000/api/user/${localStorage.getItem('username')}`, {
+        fetch(`http://127.0.0.1:8000/api/user/${username}`, {
         method: 'PUT',
         headers: headers,
         body: JSON.stringify({
-            savings: newData.savings,
-            income: newData.income,
             first_name: newData.firstName,
-            last_name: newData.lastName
-        })
+            last_name: newData.lastName,
+        }),
         })
         .then(response => {
             if (response.status === 401){

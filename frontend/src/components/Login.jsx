@@ -46,7 +46,7 @@ function LogIn() {
         })
         .then(response => {
             if (response.status === 401){
-                alert('false')
+                navigate('/login')
             }
            return response.json()
         })

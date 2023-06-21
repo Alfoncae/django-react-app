@@ -12,6 +12,7 @@ class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
         fields = '__all__'
+        ordering = ['created']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,7 +32,11 @@ class UserSerializer(serializers.ModelSerializer):
         return user
     
 class UserDetailSerializer(serializers.ModelSerializer):
+    income = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
+    expenses = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
+    savings = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
+    balance = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
 
     class Meta:
         model = User
-        exclude = ('password', 'username')
+        exclude = ('password','username')

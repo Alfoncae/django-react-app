@@ -7,7 +7,7 @@ export default function HomePage() {
 
     const [loggedIn, setLoggedIn] = React.useContext(LoginContext)
 
-    const {data: {transactions} = {}, errorStatus} = useFetch('http://127.0.0.1:8000/api/transactions/', {
+    const {request, data: {transactions} = {}, errorStatus} = useFetch(`http://127.0.0.1:8000/api/transactions/${localStorage.getItem('username')}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -15,16 +15,13 @@ export default function HomePage() {
         },
     });
 
+    React.useEffect(() => {
+        request();
+    }, [])
+
     return (
         <>
-            {transactions
-            ? transactions.map(transaction => {
-                return (
-                    <h3 key={transaction.id}>{transaction.note}</h3>
-                )
-            })
-            :
-            <h3>hey</h3>}
+            
         </>
     )
 }
