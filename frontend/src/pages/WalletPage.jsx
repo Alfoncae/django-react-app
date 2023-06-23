@@ -2,6 +2,8 @@ import React from "react"
 import { useNavigate, useLocation, Navigate } from "react-router-dom"
 import { LoginContext } from "../App"
 import useFetch from "../hooks/UseFetch"
+import AddModal from "../components/AddModal"
+import WithdrawModal from "../components/WithdrawModal"
 
 
 
@@ -12,6 +14,7 @@ export default function WalletPage() {
 
     const [loggedIn, setLoggedIn] = React.useContext(LoginContext)
     const username = localStorage.getItem('username')
+    const [currentPage, setCurrentPage] = React.useState(1);
 
     // USER DETAILS 
     const {request: userInfo, updateData, data: {user} = {}, errorStatus} = useFetch(`http://127.0.0.1:8000/api/user/${username}`, {
@@ -23,7 +26,7 @@ export default function WalletPage() {
     })
 
     // USER TRANSACTIONS
-    const {request, data: {transactions} = {}} = useFetch(`http://127.0.0.1:8000/api/transactions/${username}`, {
+    const {request, data: {results, next, previous} = {}} = useFetch(`http://127.0.0.1:8000/api/transactions/${username}?page=${currentPage}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -35,7 +38,7 @@ export default function WalletPage() {
     React.useEffect(() => {
         userInfo();
         request();
-    }, [])
+    }, [currentPage])
 
     // form state
     const [form, setForm] = React.useState({
@@ -43,6 +46,7 @@ export default function WalletPage() {
         addCash: '',
         withdraw: ''
     })
+
 
     // value presets
     React.useEffect(() => {
@@ -67,8 +71,22 @@ export default function WalletPage() {
         })
     }
 
-    const elements = transactions
-        ? transactions.map(transaction => {
+    
+    
+    const handleNext = () => {
+        if (next) {
+            setCurrentPage(currentPage + 1); // Increase currentPage by 1
+        }
+    };
+    
+    const handlePrevious = () => {
+        if (previous) {
+            setCurrentPage(currentPage - 1);  // Decrease currentPage by 1
+        }
+    };
+    
+    const elements = results
+        ? results.map(transaction => {
             if (transaction.transaction_type === 'EX'){
                 transaction.transaction_type = 'Expense'
             } else if (transaction.transaction_type === 'IN'){
@@ -82,7 +100,7 @@ export default function WalletPage() {
             let formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}/${date.getFullYear()}`;
             
             return (
-                <div className="transaction--container" onClick={() => transaction.note && console.log(transaction.note)} key={transaction.id}>
+                <div className="transaction--container" key={transaction.id}>
                     <div>
                         {transaction.transaction_type}
                     </div>
@@ -90,7 +108,7 @@ export default function WalletPage() {
                         {'$' + transaction.amount}
                     </div>
                     <div>
-                    {transaction.note ? transaction.note.substring(0, 15) + '...' : ''}
+                    {transaction.note ? transaction.note.substring(0, 15) + '...' : 'no details'}
                     </div>
                     <div>
                         {formattedDate}
@@ -99,6 +117,9 @@ export default function WalletPage() {
             )
         })
         : <></>
+
+    let leftArrow = '\u2190';
+    let rightArrow = '\u2192';
 
     return (
         <>
@@ -111,12 +132,8 @@ export default function WalletPage() {
                 >
                 Balance
                 </label>
-
                 <input 
-                    required
                     readOnly
-                    onChange={handleChange}
-                    autoComplete="off"
                     id="balance" 
                     type="number" 
                     name="balance"
@@ -125,58 +142,19 @@ export default function WalletPage() {
             </div>
 
             <div className="button--group">
-                <div className="currency--button">
-                    <button>Add Cash</button>
-                </div>
-                <div className="currency--button">
-                    <button>Withdraw Cash</button>
-                </div>
+                <AddModal />
+                <WithdrawModal />
             </div>
-
             <hr />
         </div>
         <div className="mobile--container">
             {elements}
+            <div className="pagination--button">
+                <button disabled={!previous} onClick={handlePrevious}>{leftArrow}</button>
+                <button disabled>{currentPage}</button>
+                <button disabled={!next} onClick={handleNext}>{rightArrow}</button>
+            </div>
         </div>
         </>
     )
 }
-{/* <div className="input--container">
-    <label 
-        className="label--text"
-        htmlFor="addCash"
-    >
-    Add Cash
-    </label>
-
-    <input 
-        required
-        onClick={handleCashState}
-        onChange={handleChange}
-        autoComplete="off"
-        id="addCash" 
-        type="number" 
-        name="addCash"
-        value={form.addCash}
-    ></input>
-</div>
-
-<div className="input--container">
-    <label 
-        className="label--text"
-        htmlFor="withdraw"
-    >
-    Withdraw Cash
-    </label>
-
-    <input 
-        required
-        onClick={handleCashState}
-        onChange={handleChange}
-        autoComplete="off"
-        id="withdraw" 
-        type="number" 
-        name="withdraw"
-        value={form.withdraw}
-    ></input>
-</div> */}

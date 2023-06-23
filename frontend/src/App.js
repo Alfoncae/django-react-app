@@ -7,13 +7,8 @@ import HomePage from './pages/HomePage';
 import WalletPage from './pages/WalletPage';
 import IntroPage from './pages/IntroPage';
 import AccountPage from './pages/AccountPage';
+
 import { BrowserRouter, Routes, Route, } from 'react-router-dom'
-
-
-// Capitalizes first letter
-// function capitalizeFirstLetter(name) {
-//   return name.charAt(0).toUpperCase() + name.slice(1);
-// }
 
 export const LoginContext = React.createContext()
 

@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api/transactions/<str:user>', views.Transactions, name='transactions'),
+    path('api/transactions/today/<str:user>', views.TransactionsToday, name='transactionstoday'),
     path('api/transactions/<int:id>', views.TransactionDetails, name='transactiondetails'),
     path('api/register/', views.Register, name='register'),
     path('api/user/<str:user>', views.UserDetails, name='userdetails'),

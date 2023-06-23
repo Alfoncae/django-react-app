@@ -4,10 +4,16 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.pagination import PageNumberPagination
+import datetime
+from django.utils import timezone
 
 from .serializers import TransactionSerializer, UserSerializer, UserDetailSerializer
 
 from .models import Transaction, User
+
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -17,16 +23,42 @@ def Transactions(request, user):
 
     if request.method == 'GET':
         data = Transaction.objects.filter(user=currentUser.id).order_by('-created')
-        serializer = TransactionSerializer(data, many=True)
-        return Response({'transactions': serializer.data})
+        
+        paginator = PageNumberPagination()
+
+        result_page = paginator.paginate_queryset(data, request)
+        
+        serializer = TransactionSerializer(result_page, many=True)
+        
+        return paginator.get_paginated_response(serializer.data)
+
     elif request.method == 'POST':
         serializer = TransactionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def TransactionsToday(request, user):
+    currentUser = get_object_or_404(User, username=user)
     
+    today = timezone.localdate()
+    tomorrow = today + datetime.timedelta(days=1)
+
+    if request.method == 'GET':
+        data = Transaction.objects.filter(user=currentUser.id, created__range=(today, tomorrow)).order_by('-created')
+        
+        serializer = TransactionSerializer(data, many=True)
+        
+        return Response({'transactions': serializer.data})
+    
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(['PUT', 'GET', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def TransactionDetails(request, id):

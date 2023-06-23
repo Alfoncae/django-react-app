@@ -17,6 +17,7 @@ class User(AbstractUser):
     @property
     def income(self):                                                           # returns sum by the name then function used or 0 if 0
         return self.user_transactions.filter(transaction_type=Transaction.INCOME).aggregate(Sum('amount'))['amount__sum'] or 0
+        
 
     @property
     def balance(self):

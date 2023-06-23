@@ -24,14 +24,7 @@ export default function IntroPage() {
                 illo in facere porro quidem.
                 Lorem ipsum dolor sit amet consectet
                 ur adipisicing elit. Eius pariatur velit
-                eaque quisquam, laudantium ex hic ab aspernatur,
-                placeat omnis exercitationem nobis illum perferendis dolorum
-                illo in facere porro quidem.
-                illo in facere porro quidem.
-                illo in facere porro quidem.
-                Lorem ipsum dolor sit amet consectet
-                ur adipisicing elit. Eius pariatur velit
-                eaque quisquam, laudantium ex hic ab aspernatur,
+                eaque quis
             </h3>
 
             <NavLink 

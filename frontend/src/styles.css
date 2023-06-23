@@ -28,7 +28,6 @@ body {
     gap: 10px;
     padding: 10px;
     background-color: #11212c;
-    height: 40px;
     box-shadow: 1px 2px 4px 0px #070a0c;
 }
 
@@ -69,7 +68,7 @@ body {
     color: #dee2e5;
 }
 
-.input--container button, .currency--button button{
+.input--container button, .currency--button button, .pagination--button button{
     margin-top: 15px;
     height: 40px;
     background-color: #003c64;
@@ -89,7 +88,7 @@ footer {
     margin-top: auto;
     bottom: 0;
     position: sticky;
-    height: 40px;
+    height: 70px;
     background-color: #0d1920;
     padding: 12px;
 }
@@ -169,7 +168,7 @@ footer {
 }
 
 .transaction--container:nth-child(1){
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .transaction--container:last-child {
@@ -186,7 +185,7 @@ footer {
     width: 80%;
 }
 
-.button--group button {
+.button--group button{
     width: 100%;
     margin-bottom: 10px;
 }
@@ -202,4 +201,25 @@ hr {
     height: 50px;
     width: 80%;
     background-color: gray;
+}
+
+
+/* MODAL STYLING */
+.modal--body {
+    display: flex;
+    justify-content: center;
+}
+
+.modal--body input {
+    color: black;
+}
+
+.modal--footer {
+    justify-content: center;
+}
+
+.pagination--button {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
 }

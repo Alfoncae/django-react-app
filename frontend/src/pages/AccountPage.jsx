@@ -10,6 +10,7 @@ export default function AccountPage() {
     const [form, setForm] = useState({
         firstName: '',
         lastName: '',
+        email: '',
     })
     
     const {request, updateData, data: {user} = {}, errorStatus} = useFetch(`http://127.0.0.1:8000/api/user/${username}`, {
@@ -30,7 +31,8 @@ export default function AccountPage() {
         if (user) {
             setForm({
                 firstName: user.first_name,
-                lastName: user.last_name
+                lastName: user.last_name,
+                email: user.email,
             });
         }
     }, [user]);
@@ -48,8 +50,6 @@ export default function AccountPage() {
         event.preventDefault()
         updateData(form)
     }
-
-
 
     return (
         <>
@@ -91,6 +91,25 @@ export default function AccountPage() {
                         type="text" 
                         name="lastName"
                         value={form.lastName}
+                    ></input>
+                </div>
+
+                <div className="input--container">
+                    <label 
+                        className="label--text"
+                        htmlFor="email"
+                    >
+                    Email
+                    </label>
+
+                    <input 
+                        required
+                        autoComplete="off"
+                        onChange={handleChange}
+                        id="email" 
+                        type="email" 
+                        name="email"
+                        value={form.email}
                     ></input>
                 </div>
                 <form onSubmit={handleSubmit} className="input--container">
