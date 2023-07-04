@@ -149,7 +149,7 @@ footer {
 }
 
 .intro--container h3 {
-    opacity: 25%;
+    opacity: 75%;
 }
 
 /* PAGES STYLING */
@@ -207,7 +207,9 @@ hr {
 /* MODAL STYLING */
 .modal--body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
 }
 
 .modal--body input {
@@ -222,4 +224,8 @@ hr {
     display: flex;
     gap: 10px;
     margin-bottom: 30px;
+}
+
+.modal-content {
+    color: black;
 }

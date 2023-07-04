@@ -16,15 +16,15 @@ export default function IntroPage() {
 
     return (
         <div className="intro--container">
+            <h2>
+                Welcome to MoneyManager, Your Personal Finance Partner
+            </h2>
             <h3>
-                Lorem ipsum dolor sit amet consectet
-                ur adipisicing elit. Eius pariatur velit
-                eaque quisquam, laudantium ex hic ab aspernatur,
-                placeat omnis exercitationem nobis illum perferendis dolorum
-                illo in facere porro quidem.
-                Lorem ipsum dolor sit amet consectet
-                ur adipisicing elit. Eius pariatur velit
-                eaque quis
+                MoneyMaster is a comprehensive, intuitive, and user-friendly platform 
+                designed to help you take control of your financial future. We understand
+                the complexities of managing money in today's fast-paced world, and our goal 
+                is to make personal finance management simple, accessible, and enjoyable for
+                everyone.
             </h3>
 
             <NavLink 

@@ -1,0 +1,21 @@
+.accordion-button {
+    background-color: transparent;
+}
+
+.accordion {
+    margin: 40px;
+}
+
+.accordion-item {
+    background-color: transparent;
+    outline: none;
+}
+ 
+.accordion-item *{
+    color: white;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: transparent;
+    color: white;
+}

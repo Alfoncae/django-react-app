@@ -4,6 +4,8 @@ import { LoginContext } from "../App"
 import useFetch from "../hooks/UseFetch"
 import AddModal from "../components/AddModal"
 import WithdrawModal from "../components/WithdrawModal"
+import InfoExpand from "../components/InfoExpand"
+import TransactionModal from "../components/TransactionModal"
 
 
 
@@ -84,39 +86,6 @@ export default function WalletPage() {
             setCurrentPage(currentPage - 1);  // Decrease currentPage by 1
         }
     };
-    
-    const elements = results
-        ? results.map(transaction => {
-            if (transaction.transaction_type === 'EX'){
-                transaction.transaction_type = 'Expense'
-            } else if (transaction.transaction_type === 'IN'){
-                transaction.transaction_type = 'Income'
-            } else if (transaction.transaction_type === 'SA'){
-                transaction.transaction_type = 'Savings';
-            }
-
-
-            let date = new Date(transaction.created);  // assuming transaction.created is in a valid date format
-            let formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}/${date.getFullYear()}`;
-            
-            return (
-                <div className="transaction--container" key={transaction.id}>
-                    <div>
-                        {transaction.transaction_type}
-                    </div>
-                    <div>
-                        {'$' + transaction.amount}
-                    </div>
-                    <div>
-                    {transaction.note ? transaction.note.substring(0, 15) + '...' : 'no details'}
-                    </div>
-                    <div>
-                        {formattedDate}
-                    </div>
-                </div>
-            )
-        })
-        : <></>
 
     let leftArrow = '\u2190';
     let rightArrow = '\u2192';
@@ -145,10 +114,11 @@ export default function WalletPage() {
                 <AddModal />
                 <WithdrawModal />
             </div>
+            <TransactionModal />
             <hr />
         </div>
+        {results ? <InfoExpand sections={results}/> : <></>}
         <div className="mobile--container">
-            {elements}
             <div className="pagination--button">
                 <button disabled={!previous} onClick={handlePrevious}>{leftArrow}</button>
                 <button disabled>{currentPage}</button>

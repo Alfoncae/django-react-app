@@ -16,7 +16,6 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
 def Transactions(request, user):
 
     currentUser = get_object_or_404(User, username=user)

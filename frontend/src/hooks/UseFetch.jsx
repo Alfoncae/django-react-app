@@ -36,6 +36,11 @@ export default function useFetch(url, { method, headers, body } = {}) {
         })
         .catch(error => {
             setErrorStatus(error)
+            navigate('/login', {
+                state: {
+                    previousUrl: location.pathname,
+                },
+            });
         })
     }
 
@@ -124,7 +129,43 @@ export default function useFetch(url, { method, headers, body } = {}) {
         }
     }
     
-    
 
-    return {request, updateData, updateBalance, data, errorStatus}
+    function makeTransaction(transaction){
+
+        console.log(transaction)
+        // Then update the user data with the new transaction
+        fetch(`http://127.0.0.1:8000/api/transactions/${username}`, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({
+                amount: transaction.amount,
+                transaction_type: transaction.type,
+                category: transaction.cat,
+                note: transaction.note,
+                user: data.user.id
+            }),
+        })
+        .then(response => {
+            if (response.status === 401){
+                navigate('/login', {
+                    state: {
+                        previousUrl: location.pathname,
+                    },
+                });
+            }
+
+            if (!response.ok){
+                throw response.status;
+            }
+
+            return response.json()
+        })
+        .then(updated => {
+            console.log(updated)
+        })
+        .catch(e => {
+            setErrorStatus(e)
+        })
+    }
+    return {request, updateData, updateBalance, data, errorStatus, makeTransaction}
 }
