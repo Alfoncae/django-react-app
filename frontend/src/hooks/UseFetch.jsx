@@ -80,9 +80,6 @@ export default function useFetch(url, { method, headers, body } = {}) {
     function updateBalance(amount, expense){
     
         if (data && data.user) {
-
-            console.log(data)
-
             let cat
             if (expense === 'EX'){
                 cat = 'withdraw'
@@ -119,7 +116,7 @@ export default function useFetch(url, { method, headers, body } = {}) {
                 return response.json()
             })
             .then(updated => {
-                console.log(updated)
+                console.log("Balance Updated!")
             })
             .catch(e => {
                 setErrorStatus(e)
@@ -132,7 +129,6 @@ export default function useFetch(url, { method, headers, body } = {}) {
 
     function makeTransaction(transaction){
 
-        console.log(transaction)
         // Then update the user data with the new transaction
         fetch(`http://127.0.0.1:8000/api/transactions/${username}`, {
             method: 'POST',
@@ -161,7 +157,7 @@ export default function useFetch(url, { method, headers, body } = {}) {
             return response.json()
         })
         .then(updated => {
-            console.log(updated)
+            console.log("New Transaction!")
         })
         .catch(e => {
             setErrorStatus(e)

@@ -38,6 +38,7 @@ function WithdrawModal() {
 
   function handleSubmit(){
     const expense = 'EX'
+    setShow(false)
     updateBalance(form.withdraw, expense);
     setForm({
         withdraw: ''

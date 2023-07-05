@@ -38,6 +38,7 @@ function AddModal() {
   function handleSubmit(){
     const expense = 'IN'
     updateBalance(form.addCash, expense);
+    setShow(false)
     setForm({
         addCash: ''
     });

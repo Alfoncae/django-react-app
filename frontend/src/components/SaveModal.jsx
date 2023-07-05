@@ -37,6 +37,7 @@ function SaveModal() {
 
   function handleSubmit(){
     const expense = 'SA'
+    setShow(false)
     updateBalance(form.addSavings, expense);
     setForm({
         addSavings: ''

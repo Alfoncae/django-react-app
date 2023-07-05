@@ -40,6 +40,7 @@ function TransactionModal() {
 
   function handleSubmit(){
     makeTransaction(form);
+    setShow(false)
     setForm({
       amount: '',
       category: '',
