@@ -1,6 +1,4 @@
 import React from "react"
-import { useNavigate, useLocation, Navigate } from "react-router-dom"
-import { LoginContext } from "../App"
 import useFetch from "../hooks/UseFetch"
 import AddModal from "../components/AddModal"
 import WithdrawModal from "../components/WithdrawModal"
@@ -11,15 +9,11 @@ import TransactionModal from "../components/TransactionModal"
 
 export default function WalletPage() {
 
-    const navigate = useNavigate()
-    const location = useLocation()
-
-    const [loggedIn, setLoggedIn] = React.useContext(LoginContext)
     const username = localStorage.getItem('username')
     const [currentPage, setCurrentPage] = React.useState(1);
 
     // USER DETAILS 
-    const {request: userInfo, updateData, data: {user} = {}, errorStatus} = useFetch(`http://127.0.0.1:8000/api/user/${username}`, {
+    const {request: userInfo, data: {user} = {}} = useFetch(`http://127.0.0.1:8000/api/user/${username}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -63,18 +57,6 @@ export default function WalletPage() {
         }
     }, [user])
 
-
-    function handleChange(event){
-        setForm(oldForm => {
-            return{
-                ...oldForm,
-                [event.target.name]: [event.target.value]
-            }
-        })
-    }
-
-    
-    
     const handleNext = () => {
         if (next) {
             setCurrentPage(currentPage + 1); // Increase currentPage by 1
